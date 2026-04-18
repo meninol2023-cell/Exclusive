@@ -1,12 +1,12 @@
 require("./web/server");
 
-const { 
-  Client, 
-  GatewayIntentBits, 
-  Collection, 
-  REST, 
-  Routes, 
-  SlashCommandBuilder 
+const {
+  Client,
+  GatewayIntentBits,
+  Collection,
+  REST,
+  Routes,
+  SlashCommandBuilder
 } = require("discord.js");
 
 const fs = require("fs");
@@ -18,16 +18,17 @@ const client = new Client({
 client.commands = new Collection();
 
 // ===== CARREGAR COMANDOS =====
-const commandFiles = fs.readdirSync("./commands");
+const commandFiles = fs.readdirSync("./comandos");
+
 for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
+  const command = require(`./comandos/${file}`);
   client.commands.set(command.name, command);
 }
 
 // ===== EVENTOS =====
 require("./events/interactionCreate")(client);
 
-// ===== REGISTRAR /PAINEL AUTOMÁTICO =====
+// ===== REGISTRAR COMANDO /painel =====
 const commands = [
   new SlashCommandBuilder()
     .setName("painel")
@@ -58,4 +59,4 @@ client.once("ready", () => {
 });
 
 // ===== LOGIN =====
-console.log("TOKEN:", process.env.TOKEN);
+client.login(process.env.TOKEN);

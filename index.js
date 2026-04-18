@@ -58,4 +58,4 @@ client.once("ready", () => {
 });
 
 // ===== LOGIN =====
-client.login(process.env.TOKEN);
+console.log("TOKEN:", process.env.TOKEN);
